@@ -149,19 +149,18 @@ def setup_streaming_receiver(device, record_to_vrs):
     stream_receiver.register_hand_pose_callback(handtracking_callback)
     stream_receiver.register_vio_callback(vio_callback)
 
-    # start the server
     print("Starting streaming server...")
     stream_receiver.start_server()
 
-    # Stream for 10 seconds
-    print(f"Streaming for 10 seconds...")
-    time.sleep(10)
+    print("Streaming... Press Ctrl-C to stop.")
+    try:
+        while True:
+            time.sleep(0.5)
+    except KeyboardInterrupt:
+        print("Stopping streaming...")
 
-    # stop streaming and terminate the server
-    print("Stopping streaming...")
     device.stop_streaming()
-
-    time.sleep(2)
+    time.sleep(1)
     print("Streaming stopped.")
 
 
